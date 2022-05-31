@@ -1,2 +1,3 @@
-var currentDay = document.querySelector("#currentDay");
-currentDay = moment("X").format("dddd, MMM Do YYYY");
+// variables 
+var currentDate = moment().format("dddd, MMMM Do");
+// console.log(currentDate);
