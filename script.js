@@ -1,4 +1,5 @@
 // variables 
+var containerEl = document.querySelector("container");
 var currentDate = moment().format('dddd, MMMM Do');
 // console.log(currentDate);
 
@@ -41,9 +42,9 @@ blockColors();
 
 // save btn event listener for localStorage
 $('.saveBtn').on('click', function() {
-    console.log('.description');
-    var text = $('.time-block').children('.description').val();
-    var time = $(this).parent('.hour').attr('id');
+    var text = containerEl.find('.time-block', '.description').val();
+    var time = $(this).parent().attr('id');
+    console.log(time, text);
     localStorage.setItem('.description', JSON.stringify(text));
 }); 
 
