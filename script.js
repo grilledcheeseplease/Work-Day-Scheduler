@@ -15,7 +15,7 @@ function blockColors () {
 
         var timeLine = parseInt($('.time-block').attr('id'));
 
-        if (timeLine > currentTime) {
+        if (timeLine < currentTime) {
             $('.time-block').addClass('past');
 
         } else if (timeLine === currentTime) {
@@ -33,15 +33,26 @@ function blockColors () {
 
 blockColors();
 
+// save to localStorage
+function saveData () {
+    var text = $('.time-block .description').val([]);
+    var time = $('.time-block').parent().attr('id');
+    localStorage.setItem(time, JSON.stringify(text));
+}
 
+// retrieve items from storage
+function displayStorage() {
+    var lastText = JSON.parse(localStorage.getItem('text', 'time'));
+    $('.description').innerHTML = lastText.description;
+    $('.time').innerHTML = lastText.time-block;
+    
+}
+
+displayStorage();
 
 // save btn event listener for localStorage
-$('.saveBtn').on('click', function() {
-    console.log('.time-block');
-    var text = $('.time-block').siblings('.description').val();
-    var time = $('.time-block').parent().attr('id');
-    localStorage.setItem(time, text);
-},(getItemsFromStorage, function() {
-    $('.time-block').siblings('.description').val(text);
-    $('.time-block').parent().attr('id', time)
-}));
+$('.saveBtn').on('click', function(event) {
+    console.log(saveData());
+}); 
+
+
