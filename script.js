@@ -2,7 +2,6 @@
 var currentDate = moment().format('dddd, MMMM Do');
 // console.log(currentDate);
 
-
 // date at top of calendar 
 $('#currentDay').append(currentDate);
 
@@ -14,20 +13,20 @@ function blockColors () {
     
     $('.time-block').each(function() {
 
-        var timeLine = parseInt($(this).attr('id'));
+        var timeLine = parseInt($('.time-block').attr('id'));
 
         if (timeLine > currentTime) {
-            $(this).addClass('past');
+            $('.time-block').addClass('past');
 
         } else if (timeLine === currentTime) {
-            $(this).removeClass('past');
-            $(this).addClass('present');
-            $(this).removeClass('future');
+            // $('.time-block').removeClass('past');
+            $('.time-block').addClass('present');
+            // $('.time-block').removeClass('future');
 
         } else {
-            $(this).removeClass('past');
-            $(this).removeClass('present');
-            $(this).addClass('future');
+            // $('.time-block').removeClass('past');
+            // $('.time-block').removeClass('present');
+            $('.time-block').addClass('future');
         }
     })  
 };
@@ -38,11 +37,11 @@ blockColors();
 
 // save btn event listener for localStorage
 $('.saveBtn').on('click', function() {
-    console.log(this);
-    var text = $(this).siblings('.description').val();
-    var time = $(this).parent().attr('id');
+    console.log('.time-block');
+    var text = $('.time-block').siblings('.description').val();
+    var time = $('.time-block').parent().attr('id');
     localStorage.setItem(time, text);
 },(getItemsFromStorage, function() {
-    $(this).siblings('.description').val(text);
-    $(this).parent().attr('id', time)
+    $('.time-block').siblings('.description').val(text);
+    $('.time-block').parent().attr('id', time)
 }));
