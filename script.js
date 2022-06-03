@@ -1,5 +1,4 @@
-// variables 
-var containerEl = document.querySelector("container");
+// variable
 var currentDate = moment().format('dddd, MMMM Do');
 // console.log(currentDate);
 
@@ -7,45 +6,38 @@ var currentDate = moment().format('dddd, MMMM Do');
 $('#currentDay').append(currentDate);
 
 // color code blocks for past(gray), present(red), and future(green)
-function blockColors () {
+$('.time-block').each(function () {
+
+    var hour = moment().hour();
+
+    var currentTime = $(this).find('.hour').data('hour');
     
-    var currentTime = moment().hours();
-    var timeBlock = $('.time-block');
+    var value = localStorage.getItem(currentTime);
+
+    if (hour === currentTime) {
+
+        $(this).addClass('present');
+
+    } else if (hour < currentTime) {
+
+        $(this).addClass('future');
+
+    } else {
+
+        $(this).addClass('past');
+    }
     
-    $('.time-block').each(function() {
-
-        var timeLine = parseInt($('.time-block').attr('id'));
-
-        if (timeLine < currentTime) {
-            $('.time-block').addClass('past');
-
-        } else if (timeLine === currentTime) {
-            // $('.time-block').removeClass('past');
-            $('.time-block').addClass('present');
-            // $('.time-block').removeClass('future');
-
-        } else {
-            // $('.time-block').removeClass('past');
-            // $('.time-block').removeClass('present');
-            $('.time-block').addClass('future');
-        }
-    })  
-};
-
-blockColors();
-
-// save to localStorage
-
-
-// retrieve items from storage
-
+    $(this).find('.description').val(value);
+})
 
 // save btn event listener for localStorage
-$('.saveBtn').on('click', function() {
-    var text = containerEl.find('.time-block', '.description').val();
-    var time = $(this).parent().attr('id');
-    console.log(time, text);
-    localStorage.setItem('.description', JSON.stringify(text));
-}); 
+$('.saveBtn').on('click', function () {
+
+    var text = $(this).siblings('.description').val();
+    
+    var hour = $(this).siblings('.hour').data('hour');
+    
+    localStorage.setItem(hour, JSON.stringify(text));
+});
 
 
